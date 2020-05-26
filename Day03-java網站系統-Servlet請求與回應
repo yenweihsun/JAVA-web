@@ -1,0 +1,43 @@
+Servlet 開發 --
+1. javax.servlet    
+   Generic Servlet 抽象類別  , 複寫在service() 
+2. javax.servlet.http
+   複寫doxx() 方法 實作 , ex: doGet() ,...
+   會繼承generic servlet 抽象類別 
+servlet 文件:
+https://www.tutorialspoint.com/servlets/servlets-annotations.htm
+------------------------------------------------------------------------
+
+瀏覽器 Request--> genericServlet (父)  <---繼承   httpServlet   (子)
+     Response<--    抽象類別                       抽象類別
+                  複寫在service()                複寫doxx() 方法
+
+------------------------------------------------------------------------
+通訊協定  hostname    網站系統名稱   url-pattern 路徑
+   ↓         ↓            ↓              ↓
+http:// localhost:8080  /mod01       /hello.view
+------------------------------------------------------------------------
+web.xml  和   @webServlet 佈署  若發生名稱一樣衝突,會以web.xml 優先!
+
+1. Servlet 可服務多個連結
+2. 一個連結只能引發一個Servlet
+
+@webServlet 和  @webServlet 發生衝突,他會自己找一個servlet引發 ,另一個會error 404
+
+------------------------------------------------------------------------
+
+ServletRequest Method:
+
+1.  String getParameter(string name)
+2.  String[] getParameterValues(String name)
+3.  Enumeration getPara
+
+
+
+
+
+
+
+
+
+
