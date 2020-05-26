@@ -1,11 +1,60 @@
+servletconfig :
+1.String getInitParameter(String name)   --取得指定的參數內容
+2.Enumeration getinitParameterNames()    --取得所有參數名稱
+3.ServletContext getServletContext()     --參照servletCOntext物件
+4.String getServletName()                --取得servlet instance名稱
 
+------------------------------------------------------------------------
+1.String getInitParameter(String name) :
+取得初始值  , 初始值放在web.xml 裡
 
+2.寫在@Annotation
+@webServlet(...................... ,initparams = @webinitparam(name = "", valus = "")  )
+值寫在values 
+------------------------------------------------------------------------
 
+Servlet 存取網站系統資源 => 使用ServletContext應用
 
+ServletContext 介面為存取web Application (網站應用系統)資源的介面
 
+透過 GenericServlet.getServletContext()  參照出ServletContext() 
+------------------------------------------------------------------------
+ServletContext Interface 方法:
 
+1.Object getAttribute(String name)  --參照特定屬性名稱對應物件object
 
+2.Enumeration getAttributeNames()   --取得應用系統範圍參照的所有物件屬性名稱
 
+3.void setAttribute(String name, Object value) --新增或修改特定屬性參照物件內容
+------------------------------------------------------------------------
+
+ServletContext 網站應用系統生命週期探討&實作
+
+ServletContextListener 可聆聽特定網站啟動時,進行初始化或是停止服務引發的事件程序
+
+contextInitialized
+
+contextDestroyed 
+------------------------------------------------------------------------
+採用 web.xml 佈署ServletContextListener  加上一段設定,
+     <listener>
+     <listener-class>  com.gjun.listener.applocationhandler  </listener-class>
+     </listener>
+     
+實作 ServletContextListener  
+1.先繼承  implements ServletContextListener 抽象類別
+2.設定application.setAttribute("dbconfig",config)
+3.再用jsp網頁去抓 =>application.getAttribute("dbconfig")
+------------------------------------------------------------------------
+請求配送(Dispatcher)的運行過程與狀態持續架構:
+Brower對servlet提出請求 -> ServletRequest -> Servlet 透過RequestDispatcher 介面,
+將目前接收到的ServletRequest 和 ServletResponse 分派到指定資源(JSP 或是servlet),
+有點像是同一時間太多事要處理,所以往後丟給其他人做XD
+
+1. servletRequest.getRequestDispatcher() 參照出RequestDispatcher 物件
+2. servletRequest.setAttribute()  參照處理好的state  , 
+3. RequestDispatcher.forward() 分派到指定資源去做,延續原先servletRequest和ServletResponse的生命週期
+4. jsp 呈現送進來的狀態 -> ${requestScope.result}
 
 
 
