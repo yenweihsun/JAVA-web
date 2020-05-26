@@ -1,0 +1,38 @@
+HTTP (Hypertext Transfer Protocol)
+Request / Response 
+組成結構:  
+初始定義列  +  headers  + 空白行  + body 
+---------------------------------------------------------------------
+HTTP 協定 REQUEST METHOD
+HTTP 七個方法:
+*GET      --取得SERVER資源 
+*POST     --傳送大量資料到SERVER
+*HEAD     --讀取RESPONSE的HEADER內容
+*PUT      --把指定文件放到SERVER,配合REST做修改資料
+*DELETE   --刪除放在SERVER上的文件
+*TRACE    --除錯以追蹤錯誤來源
+*OPTIONS  --查詢SERVER上特定資源或可支援方法
+---------------------------------------------------------------------
+cLIENT 透過URL 傳遞訊息
+採用QUERY STRING 查詢字串架構  -- GET 方法
+語法: ...  ?參數名稱= 參數值&參數名稱2=參數值   EX: ?paramName=java
+---------------------------------------------------------------------
+get :
+/demo/hello.jsp?paramName=java
+數據限制 : 8k
+post
+/demo/hello.jsp
+數據限制 : 2G
+---------------------------------------------------------------------
+線上servlet api 網站:
+https://tomcat.apache.org/tomcat-8.5-doc/servletapi/index.html
+https://docs.oracle.com/javaee/7/api/
+
+
+
+
+
+
+
+
+
