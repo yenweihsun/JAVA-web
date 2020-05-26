@@ -1,0 +1,46 @@
+MVC (model view and controller)
+model --類別庫 class 雲端上的API 提供使用
+view  --靜態/動態頁面 (ex: 文字 ,檔案 ,javascript)
+controller  --提供使用者介面=>與後端資源存取的控制流程元件
+-----------------------------------------------------------------------
+寫web 的方法:
+1. servlet (動態)
+2. jsp     (動態)
+3. html (靜態)
+-----------------------------------------------------------------------
+JDK 8 安裝:
+https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
+安裝Eclipse EE 工具:
+https://www.eclipse.org/downloads/
+Tomcat 9 :
+https://tomcat.apache.org/download-90.cgi
+
+注意:
+eclipse 和tomcat  port 號不要重複，兩台server不要同時啟動 ,會衝突，可用以下指令查看
+
+系統管理員啟動 cmd -> netstat -a -b 
+service.msc -> 看服務有沒有開啟
+
+-----------------------------------------------------------------------
+網站根目錄 webcontent  / index.jsp  (首頁)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
