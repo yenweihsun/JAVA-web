@@ -25,19 +25,70 @@ web.xml  和   @webServlet 佈署  若發生名稱一樣衝突,會以web.xml 優
 @webServlet 和  @webServlet 發生衝突,他會自己找一個servlet引發 ,另一個會error 404
 
 ------------------------------------------------------------------------
+ServletRequest 主要是Servlet 透過service method,定義注入前端請求的資訊界面
 
 ServletRequest Method:
 
-1.  String getParameter(string name)
-2.  String[] getParameterValues(String name)
-3.  Enumeration getPara
+1.  String getParameter(string name)          --取得表單欄位/QueryString參數名稱內容
+2.  String[] getParameterValues(String name)  --取得指定參數多值內容
+3.  Enumeration getParameterNames()           --走訪,取得所有表單欄位/url傳遞參數
+------------------------------------------------------------------------
+
+請求中傳遞的Header:
+1.String getHeader(String headerName)  --取得Header name名稱值
+
+2.Enumberation getHeaders(String headerName) --取得指定header name集合資料
+
+3.Enumeration getHeaderNames()         --走訪,取得所有header name的集合資料
+
+4.int getIntHeader(String headerName)  --取得header Name回應一個整數
+------------------------------------------------------------------------
+ServletResponse  提供回應前端方法:
+*setContentType()  --寫回覆訊息的格式
+*getWriter()       --回覆字串
+*getOutputStream() --回覆非文字檔案至前端 ex: ppt/pdf...
+
+同一個servlet不能同時使用printwrite()  和 OutputStream()  進行文字檔與檔案下載 會產生illegalStateException錯誤
+-----------------------------------------------
+HTTPServletResponse 提供方法回應 : (http 延伸)
+*setHeader()
+*setStatus()
+*sendRedirect()
+*sendError()       --送出錯誤訊息
+-----------------------------------------------
+Content Type:
+response.setContentType("text/html;charset=utf-8")
+
+格式類型表:
+https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
+
+HTTP 錯誤狀態碼參考:
+https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Status
+-----------------------------------------------
+
+Servlet 生命週期:
+load 載入 -> initializing 初始化-> Servicing & Destroy 執行與銷毀-> Unload 卸載
 
 
+*void init(servletConfig config)   --webcontainer 呼叫方法進行物件初始化
+*void init()         --覆寫此方法,自行撰寫初始化時的客製流程
+*void service(servletRequest req,ServletResponse res)   --注入封裝前端所有資訊的 ServletRequest ,ServletResponse物件
+*void destroy()      --引發servlet 執行destroy method 進行資源回收程序
 
+-----------------------------------------------
+Load 載入:
+webcontent 啟動,根據web.xml或@annotation 載入servlet , 呼叫class 建立servlet物件 ,在呼叫servlet建構子
 
+initializing 初始化:
+以覆寫init() 為主 ,   若是要覆寫void init(servletConfig config) ,要記得處理servletConfig 
+目的將現行的組態傳給GenericServlet
 
+一般而言,初始只會呼叫init(servletConfig config) 一次 ;
+一個物件產生;
+init()也只會呼叫一次;
 
-
-
-
+Destroy 銷毀:
+黨webcontent 認為 
+1.servlet很久沒被使用,會自行呼叫servlet destroy() 方法  => unload
+2.web container 被卸載時,呼叫servlet destroy() 方法    => unload
 
