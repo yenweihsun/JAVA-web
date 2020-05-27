@@ -15,11 +15,53 @@ EL 內建物件：
 11.pageContext      -->   JSP PageContext物件為相對網頁物件
 ------------------------------------------------------------------------
 1.pageScope 
-  EX: <%
-        
-        
+  EX: <%      
+        String com = "巨匠電腦" ;
+        pageContext.setAttribute("company",com);
       %>
-
-
+   .............................
+      <div> EL內建物件:${pageScope.company} </div>  
+      <div> 區域變數:${com} </div>   
+      => 結果為 :   EL內建物件:巨匠電腦
+                    區域變數:
+------------------------------------------------------------------------
+2.requestScope 
+   一般用於RequestDispatcher 或 <jsp:forward> 派送到JSP處理,
 
 ------------------------------------------------------------------------
+JSTL (Java Standard Tag Library)  JSP 標準標籤庫
+類似library ,塞入標籤語法即可引用,方便
+網址參考:
+https://tomcat.apache.org/taglibs/standard/
+------------------------------------------------------------------------
+類型1 Core 核心:
+<%@taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"  %>
+
+<c:set var="com" value = "巨匠電腦"></c:set>
+....
+<c:out value = "${com}"></c:out>
+------------------------------------------------------------------------
+類型2 fmt : (用來格式化日期,訊息,區域等資料)  format格式化標籤庫
+<%@taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"  %>
+
+<fmt:setLocale value="en_US"/>
+.............
+<p>美元en_US: <fmt:formatNumber value="123.456" type="currency"/></p> 
+
+------------------------------------------------------------------------
+類型3 sql : 串SQL資料
+<%@taglib prefix = "sql" uri = "http://java.sun.com/jsp/jstl/sql"  %>
+------------------------------------------------------------------------
+類型4 xml : xml剖析(parser),流程控制controller,轉換convert 
+<%@taglib prefix = "x" uri = "http://java.sun.com/jsp/jstl/xml"  %>
+------------------------------------------------------------------------
+類型5 fn : 只提供一個針對字串常用的函數,配合EL應用  function 函數庫應用
+<%@taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions"  %>
+
+
+
+
+
+
+
+
