@@ -1,0 +1,26 @@
+非同步執行序,Request透過AsyncContext當橋樑執處理完成程序後,使用.complete() 完成任務,在進行callback,將資料送回前端
+
+client          AsyncServlet               job
+
+  |---------------->|request.startAsync()   |
+  |                 |---------------------->|
+  |                 |execute(asyncContext)  |
+  |<----------------|-----------------------|
+  |                 |asyncContext.complete()|
+
+AsyncServlet 在 httpServlet實作
+
+1.必須設定@webServlet asyncSupported = true 
+2.建構一個thread pooling 執行序集區
+  EX: private ExecutorService executorService = Excutors.newFixedThreadPool(10);
+  ...
+  response.setcontentType("text/html; charset = utf8");  //設定回應編碼
+  int ms = Integer.parseInt(request.getParameter("ms")); //傳遞進來的毫秒數
+  
+3.透過servletRequest.getAsyncContext() 參照出AsyncContext物件
+  EX: asyncContext ctx = request.startAsync();
+4.透過runnable,注入asyncContext物件,並且送到thread pooling進行非同步處理。
+  EX: executorService.submit(new AsyncRequest(ctx,ms))
+
+
+
