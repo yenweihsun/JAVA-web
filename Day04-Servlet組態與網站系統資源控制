@@ -15,9 +15,13 @@ servletconfig :
 
 Servlet 存取網站系統資源 => 使用ServletContext應用
 
-ServletContext 介面為存取web Application (網站應用系統)資源的介面
+*ServletContext 介面為存取web Application (網站應用系統)資源的介面
 
-透過 GenericServlet.getServletContext()  參照出ServletContext() 
+*javax.servlet.ServletContext 
+SerlvetContext Interface 定義了與web container 溝通的方法,藉此獲取網站應用系統的環境資訊。
+每一個網站應用系統都一個,且只有一個ServletContext物件對應。
+
+*透過 GenericServlet.getServletContext()  參照出ServletContext() 
 ------------------------------------------------------------------------
 ServletContext Interface 方法:
 
@@ -55,8 +59,26 @@ Brower對servlet提出請求 -> ServletRequest -> Servlet 透過RequestDispatche
 2. servletRequest.setAttribute()  參照處理好的state  , 
 3. RequestDispatcher.forward() 分派到指定資源去做,延續原先servletRequest和ServletResponse的生命週期
 4. jsp 呈現送進來的狀態 -> ${requestScope.result}
+------------------------------------------------------------------------
 
+4大SCOPE: 
+Application 共享 (ServletContext) 
+Session     私有 (只有自己看的到)
+request     取得後就丟
+page        只能在一個page存活
+------------------------------------------------------------------------
+context 環境本文容器內容
 
-
-
-
+web server  (tomcat)
+  |_ web App  (mod04) 
+       |_ webContent
+               |_ META-INF
+               |_ WEB-INF
+               |     |_web.xml
+               |     |_lib      --->資料夾
+               |     |_classes  --->資料夾
+               |
+               |_*.jsp 其他資料夾     
+               |_*.html
+               
+               
