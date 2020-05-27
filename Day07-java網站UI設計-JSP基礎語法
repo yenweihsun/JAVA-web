@@ -77,13 +77,42 @@ EX:
             ............
    <jsp:getProperty property = "customerid" name = "customers" />
 -------------------------------------------------------------------------
+JSP 內建物件:
+1.out          -> jspWriter 內部關聯 PrintWriter
+2.request      -> HttpServletRequest   ,  _jspService參數
+3.response     -> HttpServletResponse  ,  _jspService參數
+4.config       -> ServletConfig        使用web.xml 佈署JSP 
+5.application  -> ServletContext       取得應用程式資源
+6.session      -> HttpSession          EX:使用者ID, 購物車狀態管理
+7.pageContext  -> PageContext
+8.exception    -> Throwable
+9.page         -> this                 <% =page.getClass() %>
+-------------------------------------------------------------------------
+EL (expression language) 不能操縱區域變數,因此必須使用 pageContext 做封裝
+EX:
+   <%  
+   String com = "巨匠電腦" ;
+   pageContext.serAttribute("company",com);
+   %>
+   .............................
+<div> 公司名:${company} </div>     
+-------------------------------------------------------------------------
+Q:當遇到不同物件都使用了相同名稱的setAttribute,那EL會進行最小可視範圍進行取得。
+  (透過getAttribute()進行範圍參照物件取得,一律採用object型別回應,要記得轉型)
+  EX:    
+      <%
+          String com = "桃園";      
+          pageContext.setAttribute("com",com);
+          String branch = "台北";
+          session.setAttribute("com",branch);
+      %>
 
-
-
-
-
-
-
+      <div> Page範圍: ${com} </div>     
+      => 結果為  Page範圍:桃園
+-------------------------------------------------------------------------
+使用到衝突字元,可以使用跳脫字元 "\" 避開
+-------------------------------------------------------------------------
+PS: JSP修改 不用重新啟動 , web.xml/Servlet 需要重新啟動
 
 
 
