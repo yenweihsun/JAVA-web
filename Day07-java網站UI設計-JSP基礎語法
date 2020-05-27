@@ -1,0 +1,89 @@
+JSP Translation 轉譯成servlet
+<%@.....%> 
+-------------------------------------------------------------------------
+request -> hello.jsp --(轉譯)--> hello.java --(編譯)--> hello.class 
+--> load --> instance --> jspinit() --> jspService() --> jspDestory()
+-------------------------------------------------------------------------
+HTTPjspPage 繼承 Servlet 介面 
+HttpjspPage 提供 jspService() 而 jspPage 介面提供 jspInit() , jspDestroy()
+-------------------------------------------------------------------------
+@page Directive 介紹 
+使用 <%@.....%> 宣告語法 
+@page  => 轉譯之前 預先提供給jsp網頁物件相關設定   
+EX: <%@ page info = "我是XXX"  %>
+
+@include  => 告知web container 目前JSP page要含入的外部page (html, jsp)來源       
+EX: <%@ include file = "banner.html" %>
+
+@taglib   => 告知web container ,JSP page要使用的自訂標籤或是JSTL支援的tag
+EX: <%@ taglib prefix = "c" uri = "xxx.tld" %>
+
+@page ........isELignored ="true"  => ="true" 忽略EL,不執行EL,原本打什麼就印什麼。
+EX:   <%@page ........isELignored ="true" ... %>
+     ...........................
+    <div> 你的名字: ${pageScope.name}</div>   =>  結果印出 "你的名字: ${pageScope.name}"
+
+@page info....  => 單純秀資訊  記得是另外寫在新的一行上
+EX: <%@page info = "我是JSP網頁" %>
+
+@page ..... import   => import java套件 使用java套件語法
+EX: <%@ page .... import = "java.util.*"
+
+<%@ page .......errorPage="xxx.jsp"  設定errorPage屬性指定的例外處理導向的網頁。
+EX: <%@ page .......errorPage="errorHandler.jsp"
+
+<%@ page .......isErrorPage = "false" 如果設定為true,則其他網頁例外處理(Exception)會導向這個(JSP)裡
+
+<%@ page .......session = "true"  => 主要用來設定該JSP是否啟動內建session物件
+
+-------------------------------------------------------------------------
+補充:
+    EL (Expression Language) 是一種方便於程式設計師和美術工程師溝通的簡便程式語法
+    宣告方式: <%= xxx %>
+-------------------------------------------------------------------------
+JSP page屬性宣告
+網頁中,自訂初始化scriptlet程序, 宣告和方法和attribute都寫在這裡
+<%! 
+    private String companyName;
+    public void jspinit(){
+      this.companyName= "巨匠電腦";
+    }
+%>
+顯示:
+<div>.....<%=this.getGreeting()%>..............</div>   => <%...%> 裡面不要加;
+此為jsp 精簡表示(運算式) Expressions
+-------------------------------------------------------------------------
+JSP 程式片段 - Scriptlets
+
+區域變數的定義與使用
+<body>
+<%
+  String hello = "您好";
+%>
+<%
+  out.println(hello);
+%>
+</body>
+-------------------------------------------------------------------------
+JSP action elements:
+
+<jsp:userBean> 建構一個javabean物件 
+<jsp:setProperty> 設定物件屬性內容
+<jsp:getProperty> 取得特定物件的屬性值
+EX:
+   <jsp:useBean id ="customers" class = "com.gjun.domain"></jsp:useBean>
+   <jsp:setProperty property="customerid" name = "customers" value = "0001" />
+        ................
+            ............
+   <jsp:getProperty property = "customerid" name = "customers" />
+-------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
