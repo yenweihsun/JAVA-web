@@ -1,0 +1,67 @@
+filter功能 :
+           filter        resource
+             |              |
+--------------------------->
+             |              |
+<----------------------------
+             |              |
+filter 有點像防火牆的概念 , 
+
+*可以多個filter
+*doFilter
+*request,forward,include
+--------------------------------------------------
+filter instance 實作在 javax.servlet.Filter介面
+方法:
+*init()
+*destroy()
+*doFilter()
+
+--------------------------------------------------
+1. 採用web.xml 佈署filter
+  <filter> 
+  <filter-mapping>  -> 篩選範圍與方式
+
+2.採用@webfilter Annoation 佈署
+
+*filter 執行順序建議使用web.xml配置,透過@webFilter沒有執行順序配置設定
+
+--------------------------------------------------
+整理:
+Listener  -> context initial 
+          -> context destroy
+四大scope :  ServletContext 
+             Session
+             Request
+             Page
+             
+Servlet doGet()        HttpServletRequest   -> request.getParameter("名稱");
+        doPost()       HttpServletResponse  -> response.getWritter();
+設定值:        
+setAttribute("名稱",值)
+getAttribute("名稱")
+
+response.sendError
+response.getwritter().println()
+--------------------------------------------------
+跳轉頁面:
+1.forward(request, response)
+*定義在RequestDispatcher的介面,由request.getRequestDispatcher呼叫 => request.getRequestDispatcher("網址") 
+*內部轉址,URL不會顯示程式名稱(可設定成參數) ,可以透過setAttribute傳遞參數
+*效率較高
+*適用於權限管理轉頁時使用
+
+2.sendRedirect()
+*定義在HttpServletResponse
+*直接外部呼叫另一支程式,會顯程式名稱
+*效率較低(因為cilent會在request一次)
+*適用於跳至外部網站或回主畫面使用
+EX:key完帳密後,頁面要轉到網站的首頁
+
+
+
+
+
+
+
+
