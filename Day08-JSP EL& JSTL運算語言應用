@@ -1,0 +1,25 @@
+EL 具有輸出,可直接在HTML TAG進行運算輸出
+EX:　　％｛ＥＬ表達式｝
+　　　　%{requestScope.user.nameName}
+EL 內建物件：
+1.pageScope         -->   參照page階層參照的物件
+2.requestScope      -->       ServletRequest
+3.sessionScope      -->       HTTPSession
+4.applicationScope  -->       ServletContext
+5.param             -->       傳遞進來的參數名稱內容
+6.paramValues       -->       所有參數內容
+7.header            -->       HTTP Header 內容
+8.headerValues      -->       所有 header collection 內容
+9.initParam         -->       ServletContext初始化參數內容
+10.cookie           -->       Cookie 值
+11.pageContext      -->   JSP PageContext物件為相對網頁物件
+------------------------------------------------------------------------
+1.pageScope 
+  EX: <%
+        
+        
+      %>
+
+
+
+------------------------------------------------------------------------
